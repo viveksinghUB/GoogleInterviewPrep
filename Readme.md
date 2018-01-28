@@ -114,8 +114,8 @@ else print usa
 
 [K distance duplicate: GFG ](https://www.geeksforgeeks.org/check-given-array-contains-duplicate-elements-within-k-distance/)
 
-Keep adding to hashset if i<k
-else remove the i-kth element, as its at larger distance, and check if i is present, if not add ith  element
+Keep adding to hashset if i less than k else remove the i-kth element, as its at larger distance, and check if i is present, if not add ith  element
+
 ,,,,
   public static void dupHash(int[] ls,int k){
     HashSet<Integer> set = new HashSet<>();
