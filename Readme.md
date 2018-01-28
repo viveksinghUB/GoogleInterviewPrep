@@ -1,6 +1,6 @@
 # Repository for questions asked in Google Interview
 
-1.  Implement an interface. 
+1.  ##### Implement an interface. 
 ```
 public interface Relatable {
         
@@ -35,7 +35,7 @@ public class RectanglePlus implements Relatable {
 }
 ````
 
-3. Permutation of all character in a string
+2.   ##### Permutation of all character in a string
 ```
     	private void permute(String str, String pre)
 	{
@@ -54,11 +54,11 @@ public class RectanglePlus implements Relatable {
 	}
 ````
 
-4. Permutation of all character in a string
+3.   ##### Permutation of all character in a string
 
     `Put entries in HashSet, before printing check if its already present, if not add and print.`
     
-5. Disadvantages of using static variable in JAVA
+4.   ##### Disadvantages of using static variable in JAVA
     
     Static variables defined at global scope of the class and so they also refereed as class member. 
 - You can not control creation and destruction of static variable. Usefully they have been created at program loading and destroyed when program unload.
@@ -66,7 +66,7 @@ public class RectanglePlus implements Relatable {
 - If one thread changes value of a static variable that can possibly break functionality of other threads.
 - They donot reflect the true behaviour of OOP concept.
 
-6. Given a list of ordered distinct integers from [0-99] summarize missing elements in string format.
+5.   ##### Given a list of ordered distinct integers from [0-99] summarize missing elements in string format.
 
 Input: [0,1,2,50,52,75]
 Output: "3-49,51,53-74,76-99" 
