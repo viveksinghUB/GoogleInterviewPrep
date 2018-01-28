@@ -53,3 +53,6 @@ public class RectanglePlus implements Relatable {
 		}
 	}
 ````
+
+4. Permutation of all character in a string
+    `Put entries in HashSet, before printing check if its already present, if not add and print.`
