@@ -137,7 +137,7 @@ Keep adding to hashset if i less than k else remove the i-kth element, as its at
 
 8.   ##### Given 3 coins of different values, print all the sums of the coins up to 1000. Must be printed in order.  ex: coins(10, 15, 55)  output 10 15 20 25 30 . . . 1000  
 
-Add to to HashSet
+Add 0 to HashSet
 Now check for all integers if integer- any of the coin values (or 0 ) is present, add it to HashSet, because this sum can be created by adding any one of the coin.
 ````
 public void printSums(int c1, int c2, int c3) {
