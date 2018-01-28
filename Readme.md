@@ -34,3 +34,22 @@ public class RectanglePlus implements Relatable {
     }
 }
 ````
+
+3. Permutation of all character in a string
+```
+    	private void permute(String str, String pre)
+	{
+		if (str.length()==1)
+			System.out.println(pre+str);
+		else
+		{
+			for (int i = 0; i < str.length(); i++)
+			{   
+			    if(i==0)
+			        permute(str.substring(1,str.length()),pre+str.charAt(i));
+			    else 
+			    	permute(str.substring(0,i)+str.substring(i+1,str.length()),pre+str.charAt(i));
+			}
+		}
+	}
+````
