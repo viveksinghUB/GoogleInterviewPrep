@@ -116,7 +116,7 @@ else print usa
 
 Keep adding to hashset if i less than k else remove the i-kth element, as its at larger distance, and check if i is present, if not add ith  element
 
-,,,,
+````
   public static void dupHash(int[] ls,int k){
     HashSet<Integer> set = new HashSet<>();
     for(int i=0;i<ls.length;i++){
@@ -133,7 +133,7 @@ Keep adding to hashset if i less than k else remove the i-kth element, as its at
     System.out.println("false");
     
   }
-  ,,,,
+````
 
 
 
