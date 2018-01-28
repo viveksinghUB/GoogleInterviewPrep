@@ -110,8 +110,30 @@ if number 50 to 90, print china
 else print usa
 ````
 
+7.   ##### Check if a given array contains duplicate elements within k distance from each other
 
+[K distance duplicate: GFG ](https://www.geeksforgeeks.org/check-given-array-contains-duplicate-elements-within-k-distance/)
 
+Keep adding to hashset if i<k
+else remove the i-kth element, as its at larger distance, and check if i is present, if not add ith  element
+,,,,
+  public static void dupHash(int[] ls,int k){
+    HashSet<Integer> set = new HashSet<>();
+    for(int i=0;i<ls.length;i++){
+      if(i>k){
+        int start = i-k-1;
+        set.remove(ls[start]);
+      }
+      if(set.contains(ls[i])){
+        System.out.println("true");
+        return;
+      }
+      set.add(ls[i]);
+    }
+    System.out.println("false");
+    
+  }
+  ,,,,
 
 
 
