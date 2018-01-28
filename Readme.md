@@ -69,9 +69,46 @@ public class RectanglePlus implements Relatable {
 5.   ##### Given a list of ordered distinct integers from [0-99] summarize missing elements in string format.
 
 Input: [0,1,2,50,52,75]
+
 Output: "3-49,51,53-74,76-99" 
 
+````
+class MyCode {
+  public static void main (String[] args) {
+    int[] l = {0,1,2,50,75,80};
+    missing(l);
+  }
+  
+  public static void missing(int[] ls){
+    
+    StringBuilder str=new StringBuilder();
+    int count=0;
+    int i=0;
+    while(count<ls.length){
+      if(ls[count]>i){
+        if(ls[count]==i+1)
+          str.append(String.valueOf(i)+ " ");
+        else
+          str.append(String.valueOf(i)+ " - "+String.valueOf(ls[count]-1)+" , ");
+      }
+      
+      i=ls[count++]+1;
+    }
+    System.out.println(str);
+    
+  }
+}
+````
 
+6.   ##### If you're given a list of countries and its corresponding population, write a function that will return a random country but the higher the population of the country, the more likely it is to be picked at random.
+````
+Sort countries by population.
+india 50, china 40, usa 20
+generate random number
+if number 1 to 50 print india
+if number 50 to 90, print china
+else print usa
+````
 
 
 
