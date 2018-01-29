@@ -295,6 +295,11 @@ while(n){
 if(rev==n) then its palindrome
 ````
 
+
+
+---
+
+
 12. ##### Two's Complement
 [More read](https://www.cs.cornell.edu/~tomf/notes/cps104/twoscomp.html)
 To get the two's complement negative notation of an integer, you write out the number in binary. You then invert the digits, and add one to the result.
@@ -322,9 +327,30 @@ Given an array in which all numbers except two are repeated once. (i.e. we have 
    elements in each set, and we get the non-repeating 
    elements 7 and 9. Please see implementation for this   
    step.
-   
+  
+````
+
+ for(i = 1; i < n; i++)
+   xor ^= arr[i];
+ 
+  /* Get the rightmost set bit in set_bit_no */
+  set_bit_no = xor & ~(xor-1);
+  //or
+  //set_bit_no=xor ^ (xor & (xor -1));
+  // xor number with its value with right most set bit as unset. Only right most set bit will be chhanged thus will be retained doing xor.
+ 
+  /* Now divide elements in two sets by comparing rightmost set    bit of xor with bit at same position in each element. */
+  for(i = 0; i < n; i++)
+  {
+    if(arr[i] & set_bit_no)
+     *x = *x ^ arr[i]; /*XOR of first set */
+    else
+     *y = *y ^ arr[i]; /*XOR of second set*/
+  }
+  
+````
 
 
 ---
 
-
+14. ##### .
