@@ -186,6 +186,11 @@ public void printSums(int c1, int c2, int c3) {
  (Use elements as Index and mark the visited places)
 Traverse the array. While traversing, use absolute value of every element as index and make the value at this index as negative to mark it visited. If something is already marked negative then this is the repeating element. To find missing, traverse the array again and look for a positive value.
 
+
+---
+
+
+
 10.   ##### Find the two repeating elements in a given array.
 
 ````
