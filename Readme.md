@@ -35,6 +35,9 @@ public class RectanglePlus implements Relatable {
 }
 ````
 
+---
+
+
 2.   ##### Permutation of all character in a string
 ```
     	private void permute(String str, String pre)
@@ -54,10 +57,16 @@ public class RectanglePlus implements Relatable {
 	}
 ````
 
+---
+
+
 3.   ##### Permutation of all character in a string
 
     `Put entries in HashSet, before printing check if its already present, if not add and print.`
-    
+ 
+---
+
+   
 4.   ##### Disadvantages of using static variable in JAVA
     
     Static variables defined at global scope of the class and so they also refereed as class member. 
@@ -65,6 +74,9 @@ public class RectanglePlus implements Relatable {
 - Since static variable are class member, all threads tries to access them has to be  manage.
 - If one thread changes value of a static variable that can possibly break functionality of other threads.
 - They donot reflect the true behaviour of OOP concept.
+
+---
+
 
 5.   ##### Given a list of ordered distinct integers from [0-99] summarize missing elements in string format.
 
@@ -100,6 +112,9 @@ class MyCode {
 }
 ````
 
+---
+
+
 6.   ##### If you're given a list of countries and its corresponding population, write a function that will return a random country but the higher the population of the country, the more likely it is to be picked at random.
 ````
 Sort countries by population.
@@ -109,6 +124,9 @@ if number 1 to 50 print india
 if number 50 to 90, print china
 else print usa
 ````
+
+---
+
 
 7.   ##### Check if a given array contains duplicate elements within k distance from each other
 
@@ -135,6 +153,9 @@ Keep adding to hashset if i less than k else remove the i-kth element, as its at
   }
 ````
 
+---
+
+
 8.   ##### Given 3 coins of different values, print all the sums of the coins up to 1000. Must be printed in order.  ex: coins(10, 15, 55)  output 10 15 20 25 30 . . . 1000  
 
 Add 0 to HashSet
@@ -156,6 +177,9 @@ public void printSums(int c1, int c2, int c3) {
 }
 ````
 
+---
+
+
 
 9.   ##### Find the repeating and the missing.
 
@@ -176,6 +200,9 @@ Traverse the array. While traversing, use absolute value of every element as ind
     }
   }
   ````
+
+---
+
 
 11. ##### Notes on Bitwise Operator.
 
@@ -272,6 +299,9 @@ If a number is represented in 2's compliment, and its first bit is 1 then its a 
 If negative, to get what number its negative of : flip and add 1.
 To get negative representation of a number : flip and add 1.
 
+---
+
+
 13. ##### Find the two non-repeating elements in an array of repeating elements.
 
 Given an array in which all numbers except two are repeated once. (i.e. we have 2n+2 numbers and n numbers are occurring twice and remaining two have occurred once). Find those two numbers in the most efficient way. ? 
@@ -288,5 +318,8 @@ Given an array in which all numbers except two are repeated once. (i.e. we have 
    elements 7 and 9. Please see implementation for this   
    step.
    
+
+
+---
 
 
