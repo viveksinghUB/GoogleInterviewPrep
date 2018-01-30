@@ -353,4 +353,23 @@ Given an array in which all numbers except two are repeated once. (i.e. we have 
 
 ---
 
-14. ##### .
+14. ##### . 	[License Key Formatting ](https://leetcode.com/problems/license-key-formatting/description/)
+
+Input: S = "5F3Z-2e-9-w", K = 4
+
+Output: "5F3Z-2E9W"
+
+Explanation: The string S has been split into two parts, each part has 4 characters.
+Note that the two extra dashes are not needed and can be removed.
+
+````
+public String licenseKeyFormatting(String S, int K) {
+    StringBuilder temp = new StringBuilder();
+    for(int i=S.length()-1;i>=0;i--){
+        char ch=S.charAt(i);
+        if(ch!='-')
+            temp.append(temp.length()%(K+1) == K ? "-" : "").append(ch);
+    }
+    return temp.reverse().toString().toUpperCase();
+}
+````
