@@ -375,9 +375,12 @@ public String licenseKeyFormatting(String S, int K) {
 ````
 Or it can be done by replacing all - with blank and then inserting after every k count
 
+
+---
+
+---
+
 15. ##### 581. [Shortest Unsorted Continuous Subarray](https://leetcode.com/problems/shortest-unsorted-continuous-subarray/discuss/103057)
-
-
 
 ````
 class Solution {
@@ -426,7 +429,44 @@ class Solution {
 
 ````
 
+---
 
+16. ##### 	[Design Compressed String Iterator](https://leetcode.com/problems/design-compressed-string-iterator/solution/)
+
+````
+class StringIterator {
+    int index;
+    int count;
+    char ch=' ';
+    String str;
+    public StringIterator(String compressedString) {
+        index=0;
+        count=0;
+        str=compressedString;
+        
+    }
+    
+    public char next() {
+        if(!hasNext())
+            return ' ';
+        if(count==0){
+            ch=str.charAt(index);
+            index+=1; //move to digit;
+            while(index<str.length() && Character.isDigit(str.charAt(index)))
+                count = count*10 + (str.charAt(index++)-'0');
+        }
+        count--;
+        return ch;
+        
+    }
+    public boolean hasNext() {
+        return index!=str.length() || count!=0;
+    }
+}
+````
+
+
+---
 
 
 
