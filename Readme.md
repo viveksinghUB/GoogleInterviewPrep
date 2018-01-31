@@ -373,3 +373,61 @@ public String licenseKeyFormatting(String S, int K) {
     return temp.reverse().toString().toUpperCase();
 }
 ````
+Or it can be done by replacing all - with blank and then inserting after every k count
+
+15. ##### 581. [Shortest Unsorted Continuous Subarray](https://leetcode.com/problems/shortest-unsorted-continuous-subarray/discuss/103057)
+
+
+
+````
+class Solution {
+    public int findUnsortedSubarray(int[] nums) {
+        //find the breakage point from left
+        int start,end,i,j,left=-1,right=-1,maxval=Integer.MIN_VALUE,minval=Integer.MAX_VALUE;
+        for(i=1;i<nums.length;i++){
+            if(nums[i]<nums[i-1]) {
+                left=i-1;
+                break;
+            }
+        }
+            
+                
+        for(j=nums.length-2;j>=0;j--){
+            if(nums[j]>nums[j+1]){
+                right=j+1;
+                break;   
+            }
+        }
+        //If already sorted return 0
+        if(left<0)
+            return 0;
+            
+        start=Math.min(left,right);
+        end=Math.max(left,right);
+        
+        //find min and max in the subarray
+        for(i=start;i<=end;i++){
+            maxval=Math.max(maxval,nums[i]);
+            minval=Math.min(minval,nums[i]);
+        }
+        start=-1;end=-1;
+        //check which value contradicts with min and max of subarray, this will find breakage of looks like sorted array
+        for(i=0;i<nums.length;i++){
+            if(nums[i]>minval && start==-1)
+                start=i;
+            if(nums[nums.length-1-i]<maxval && end==-1)
+                end=nums.length-1-i;
+            if(start!=-1 && end!=-1)
+                break;
+        }
+        return end-start+1;
+    }
+}
+
+````
+
+
+
+
+
+
