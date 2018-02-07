@@ -471,3 +471,193 @@ class StringIterator {
 
 
 
+17. ##### 	[Plus One](https://leetcode.com/problems/plus-one/description/)
+
+````
+class Solution {
+    public int[] plusOne(int[] digits) {
+        int start=digits.length-1,end=0;
+        while(start>=0 && digits[start]==9){
+            start--;
+        }
+    
+        if(start<0){
+            int[] ans = new int[digits.length+1];
+            ans[0]=1;
+            return ans;
+        }
+        digits[start++]+=1;
+        while(start<digits.length)
+            digits[start++]=0;
+        return digits;
+        
+    }
+}
+````
+
+
+---
+
+18. ##### 	[Find a peak element](https://www.geeksforgeeks.org/find-a-peak-in-a-given-array/)
+
+We can use Divide and Conquer to find a peak in O(Logn) time. The idea is Binary Search based, we compare middle element with its neighbors. If middle element is not smaller than any of its neighbors, then we return it. If the middle element is smaller than the its left neighbor, then there is always a peak in left half (Why? take few examples). If the middle element is smaller than the its right neighbor, then there is always a peak in right half (due to same reason as left half).
+//if neighbour exist check if its greater than neighbour
+if( (mid==0 || a[mid] > a[mid-1] ) && (mid==arr.length-1 && a[mid] > a[mid+1]))
+        return a[mid];
+`````
+int findPeak(int [] arr){
+    return getPeak(arr,0,arr.length-1);
+}
+
+int getPeak(int[] arr, int i, int j){
+    int mid=(i+j)/2
+    
+    if( (mid==0 || a[mid] > a[mid-1] ) && (mid==arr.length-1 && a[mid] > a[mid+1]))
+        return a[mid];
+    else
+        if(mid>0 && a[mid] < a[mid-1])
+            return getPeak(arr,i,mid-1);
+        else 
+            return getPeak(arr,mid+1,j)l;
+    
+}
+
+`````
+
+
+---
+
+
+---
+
+19. ##### [Count maximum collinear points](https://www.geeksforgeeks.org/count-maximum-points-on-same-line/)
+
+We can solve above problem by following approach – For each point p, calculate its slope with other points and use a map to record how many points have same slope, by which we can find out how many points are on same line with p as their one point. For each point keep doing the same thing and update the maximum number of point count found so far.
+
+Advance
+
+Some things to note in implementation are:
+1) if two point are (x1, y1) and (x2, y2) then their slope will be (y2 – y1) / (x2 – x1) which can be a double value and can cause precision problems. To get rid of the precision problems, we treat slope as pair ((y2 – y1), (x2 – x1)) instead of ratio and reduce pair by their gcd before inserting into map. In below code points which are vertical or repeated are treated separately
+
+
+````
+//  looping for each point
+    for (int i = 0; i < N; i++)
+    {
+        curMax = overlapPoints = verticalPoints = 0;
+ 
+        //  looping from i + 1 to ignore same pair again
+        for (int j = i + 1; j < N; j++)
+        {
+            //  If both point are equal then just
+            // increase overlapPoint count
+            if (points[i] == points[j])
+                overlapPoints++;
+ 
+            // If x co-ordinate is same, then both
+            // point are vertical to each other
+            else if (points[i].first == points[j].first)
+                verticalPoints++;
+ 
+            else
+            {
+                int yDif = points[j].second - points[i].second;
+                int xDif = points[j].first - points[i].first;
+                int g = __gcd(xDif, yDif);
+ 
+                // reducing the difference by their gcd
+                yDif /= g;
+                xDif /= g;
+ 
+                // increasing the frequency of current slope
+                // in map
+                slopeMap[make_pair(yDif, xDif)]++;
+                curMax = max(curMax, slopeMap[make_pair(yDif, xDif)]);
+            }
+ 
+            curMax = max(curMax, verticalPoints);
+        }
+ 
+        // updating global maximum by current point's maximum
+        maxPoint = max(maxPoint, curMax + overlapPoints + 1);
+ 
+ 
+ `````
+ 
+ 
+ 20. ##### (word boggle game)[https://www.geeksforgeeks.org/boggle-find-possible-words-board-characters/]
+ 
+Pick one character and call function to deep traverse from this character.
+
+Util function
+check if word present
+Mark index visited
+Call same finction to all 8 locations accross this character
+
+clear string
+
+````
+
+void findWordsUtil(char boggle[M][N], bool visited[M][N], int i,
+                   int j, string &str)
+{
+    // Mark current cell as visited and append current character
+    // to str
+    visited[i][j] = true;
+    str = str + boggle[i][j];
+ 
+    // If str is present in dictionary, then print it
+    if (isWord(str))
+        cout << str << endl;
+ 
+    // Traverse 8 adjacent cells of boggle[i][j]
+    for (int row=i-1; row<=i+1 && row<M; row++)
+      for (int col=j-1; col<=j+1 && col<N; col++)
+        if (row>=0 && col>=0 && !visited[row][col])
+          findWordsUtil(boggle,visited, row, col, str);
+ 
+    // Erase current character from string and mark visited
+    // of current cell as false
+    str.erase(str.length()-1);
+    visited[i][j] = false;
+}
+
+````
+
+
+
+
+---
+
+21. ##### (Boggle | Set 2 (Using Trie))[https://www.geeksforgeeks.org/boggle-set-2-using-trie/]
+
+
+---
+
+
+22. ##### (Deepest node in left subtree)
+
+Keep a boolean variable to see if its left or right
+if left then only compare max
+
+`````
+	Node root;
+	int maxLvl;
+	Node result;
+
+	void deepestLeftLeafUtil(Node node,int lvl,boolean isLeft) 
+	{
+		// Base case
+		if (node == null) 
+			return;
+
+		if(isLeft){
+		    if(lvl>maxLvl){
+		        maxLvl=lvl;
+		        result=node;
+		    }
+		}
+		deepestLeftLeafUtil(node.left, lvl + 1, true);
+		deepestLeftLeafUtil(node.right, lvl + 1,false);
+	}
+`````
