@@ -733,5 +733,113 @@ class Solution {
 ``````
 
 
-30. ##### Minimum height tree from graph
+30. ##### Minimum height tree from graph (leetcode)[https://leetcode.com/problems/minimum-height-trees/description/]
+
+Create adjecency list since nodes are numbered from 0 to n thus instead of hashmap we can make array of linked list.
+where arr[i] shows list of nodes attached to node i
+
+create distance array that stores the distance of node, eventually when we go deep, dist will store the distance from root
+create a parent array to store the parent of each node , will help us in tracking down the longest path from v to u
+
+then call dfs with starting node as any random node, we pick 0, 
+	keep a visited array, mark start as visited and insert in queue
+	while q is not empty, pop from q, traverse in its list, 
+		if a partiular value is not visited
+			update distance of values of list, mark visited, insert in queue, mark parent 
+after dfs , find the node with max distance = u
+make this node as start node and call dfs
+find node with max distance = v
+insert all the values from v to u using parent array into a list
+if length of list is even, return the mid,mid-1 values
+if odd return mid vakue
+
+`````
+class Solution {
+    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        
+        if(n==0)
+            return new ArrayList<>();
+        if(n==1 && edges.length==0)
+            return Arrays.asList(0);
+        //create adj list
+        HashMap<Integer,ArrayList<Integer>> adj=new HashMap<>();
+        for(int[] pairs : edges){
+            if(!adj.containsKey(pairs[0]))
+                adj.put(pairs[0],new ArrayList<Integer>());
+            if(!adj.containsKey(pairs[1]))
+                adj.put(pairs[1],new ArrayList<Integer>());
+            adj.get(pairs[0]).add(pairs[1]);
+            adj.get(pairs[1]).add(pairs[0]);
+        }
+        
+        int[] dist1=new int[n];
+        Integer[] parent=new Integer[n];//to store parent
+        
+        bfs(0,dist1,adj,parent);//pick any random node as start node
+        //find the node with largest distance
+        int max1=0;
+        for(int i=0;i<n;i++){
+            if(dist1[i] >  dist1[max1]){
+                max1=i;                
+            }
+        }
+        
+        //traverse from this node
+        int[] dist2=new int[n];
+        
+        bfs(max1,dist2,adj,parent);
+        //find the node with largest distance from previous max
+        int max2=0;
+        for(int i=0;i<n;i++){
+            if(dist2[i] >  dist2[max2]){
+                max2=i;                
+            }
+        }
+        // max1 is at one end and max2 is at other
+        //if num of element in longest path is odd then middle+1 is the answer; 5-> 0,1,2,3,4  | 5/2=2
+        //if num of element in longest path is even then mid and mid+1 is the answer 4-> 0,1,2,3 | 4/2=2,1
+        int count=0;
+        int ptr=max2;
+        ArrayList<Integer> pathnodes = new ArrayList<>();
+        while(ptr!=-1){
+            System.out.println(ptr);
+            pathnodes.add(ptr);
+            ptr=parent[ptr];
+            
+        }
+        int listSize=pathnodes.size();
+        if(listSize%2==0){
+            return Arrays.asList(pathnodes.get(listSize/2),pathnodes.get((listSize/2)-1));
+        }
+        else
+            return Arrays.asList(pathnodes.get(listSize/2));
+            
+    }
+    
+    void bfs(int start,int [] dist,HashMap<Integer,ArrayList<Integer>> adj,Integer[] parent){
+        boolean[] visited = new boolean[dist.length];
+        Queue<Integer> queue=new LinkedList<Integer>();
+        queue.add(start);//supposingly root for bfs
+        parent[start]=-1; //to mark the start of longest path
+        dist[start]=0;//root is at distance 0
+        visited[start]=true;
+        while(!queue.isEmpty()){
+            Integer node = queue.poll();
+            for(Integer n :  adj.get(node)){
+                if(!visited[n]){
+                    dist[n]=dist[node]+1;
+                    visited[n]=true;
+                    queue.add(n);
+                    parent[n]=node;
+                }
+            }
+        }
+    }
+    
+    
+    
+}
+
+`````
+			
 31. ##### Balanced binary tree (leetcode)[https://leetcode.com/problems/balanced-binary-tree/description/]
