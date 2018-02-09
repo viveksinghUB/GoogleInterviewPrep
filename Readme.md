@@ -662,3 +662,38 @@ if left then only compare max
 	}
 `````
 
+23. ##### Biggest Square with all ones in it
+24. ##### Bigges rectangle with all ones
+25. ##### Biggest rectangle in histogram
+26. ##### Maximum height of tree
+27. ##### Minimum height tree
+28. ##### Longest increasing consecutive subtree (lee)
+29. ##### longest consecutive sequence subtree || (leetcode)[https://leetcode.com/problems/binary-tree-longest-consecutive-sequence-ii/description/]
+
+`````
+class Solution {
+    
+    int max=1;
+    
+    public int longestConsecutive(TreeNode root) {
+        util(root,1,null);
+        return root==null ? 0 : max;
+    }
+    public void util(TreeNode node,int count,TreeNode pre){
+        if(node==null)
+            return;
+        if(pre!=null && pre.val+1==node.val){
+                count+=1;
+                max=Math.max(max,count);
+        }
+        else
+            count=1;
+        util(node.left,count,node);
+        util(node.right,count,node);
+    }
+}
+``````
+
+
+30. ##### Minimum height tree from graph
+31. ##### Balanced binary tree (leetcode)[https://leetcode.com/problems/balanced-binary-tree/description/]
