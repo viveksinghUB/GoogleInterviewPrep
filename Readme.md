@@ -667,8 +667,46 @@ if left then only compare max
 25. ##### Biggest rectangle in histogram
 26. ##### Maximum height of tree
 27. ##### Minimum height tree
-28. ##### Longest increasing consecutive subtree (lee)
-29. ##### longest consecutive sequence subtree || (leetcode)[https://leetcode.com/problems/binary-tree-longest-consecutive-sequence-ii/description/]
+28. ##### Longest increasing consecutive subtree ||(leetcode)[https://leetcode.com/problems/binary-tree-longest-consecutive-sequence-ii/description/]
+
+`````
+class Solution {
+    int maxval = 0;
+    public int longestConsecutive(TreeNode root) {
+        longestPath(root);
+        return maxval;
+    }
+    
+    int[] longestPath(TreeNode root){
+        if(root==null)
+            return new int[] {0,0};
+        int[] inrdcr={1,1};
+        if(root.left != null ){
+            int [] childs=longestPath(root.left);
+            if(root.left.val==root.val-1){
+                inrdcr[1]+=childs[1];
+            }
+            else if(root.left.val==root.val+1){
+                inrdcr[0]+=childs[0];
+            }
+        }
+        if(root.right != null ){
+            int [] childs=longestPath(root.right);
+            if(root.right.val==root.val-1){
+                inrdcr[1]=Math.max(childs[1]+1,inrdcr[1]);
+            }
+            else if(root.right.val==root.val+1){
+                inrdcr[0]=Math.max(childs[0]+1,inrdcr[0]);
+            }
+        }
+        maxval=Math.max(maxval,inrdcr[0]+inrdcr[1]-1);
+        return inrdcr;
+    }
+}
+
+
+`````
+29. ##### longest consecutive sequence subtree  (leetcode)[https://leetcode.com/problems/binary-tree-longest-consecutive-sequence-ii/description/]
 
 `````
 class Solution {
