@@ -843,3 +843,64 @@ class Solution {
 `````
 			
 31. ##### Balanced binary tree (leetcode)[https://leetcode.com/problems/balanced-binary-tree/description/]
+
+`````
+
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+        return util(root)!=-1;
+        
+    }
+    
+    int util(TreeNode root){
+        if(root==null)
+            return 0;
+        if(root.left==null && root.right==null)
+            return 1;
+        int heightLeft=root.left==null ? 0 : util(root.left);
+        int heightRight=root.right==null ? 0 : util(root.right);
+        if(heightLeft==-1 || heightRight==-1 || Math.abs(heightLeft-heightRight)>1)
+            return -1;
+        else 
+            return 1+Math.max(heightLeft,heightRight);
+    }
+        
+}
+
+`````
+
+
+32. Largest BST in binary tree (gfg)[https://leetcode.com/problems/largest-bst-subtree/description/]
+
+#VERY IMP
+
+````
+class Solution {
+    private int largestBSTSubtreeSize = 0;
+    public int largestBSTSubtree(TreeNode root) {
+        helper(root);
+        return largestBSTSubtreeSize;
+    }
+    
+    public int[] helper(TreeNode root){
+        //define the values to be passed,
+        //0th is the size, -1 means not a bst, 1 will be min, 2 will be max
+        int [] result=new int[3];
+        if(root==null)
+            return result; // index 0 will hold 0 value
+        int[] left=helper(root.left);
+        int[] right = helper(root.right);
+        if( (left[0]==0 || (left[0]>0 && root.val > left[2]) ) && (right[0]==0 || (right[0]>0 && root.val < right[1]) ) )
+        {
+            result[0]=left[0]+right[0]+1;
+            largestBSTSubtreeSize=Math.max(largestBSTSubtreeSize,result[0]);
+            result[1]=left[0]==0 ? root.val : left[1];
+            result[2]=right[0]==0 ? root.val : right[2];
+        }
+        else
+            result[0]=-1;
+        return result;
+    }
+}
+
+````
