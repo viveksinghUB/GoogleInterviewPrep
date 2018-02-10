@@ -904,3 +904,93 @@ class Solution {
 }
 
 ````
+
+
+32. Task Scheduler with idle or other task(leetcode)[https://leetcode.com/problems/task-scheduler/solution/]
+
+````
+
+public class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        int[] map = new int[26];
+        for (char c: tasks)
+            map[c - 'A']++;
+        PriorityQueue < Integer > queue = new PriorityQueue < > (26, Collections.reverseOrder());
+        for (int f: map) {
+            if (f > 0)
+                queue.add(f);
+        }
+        int time = 0;
+        while (!queue.isEmpty()) {
+            int i = 0;
+            List < Integer > temp = new ArrayList < > ();
+            while (i <= n) {
+                if (!queue.isEmpty()) {
+                    if (queue.peek() > 1)
+                        temp.add(queue.poll() - 1);
+                    else
+                        queue.poll();
+                }
+                time++;
+                if (queue.isEmpty() && temp.size() == 0)
+                    break;
+                i++;
+            }
+            for (int l: temp)
+                queue.add(l);
+        }
+        return time;
+    }
+}
+
+````
+
+
+33. #### Course schedule 1
+
+Courses numbered from 0 to n-1; some with dependencies and some withnot, check if all can be completed.
+count number of dependencies of each course
+check which course dont have depedencies
+	count them and add them to the queue
+	while queue is not empty
+		for the polled value of queue, reduce dependency of dependent ones
+		if any dependency becomes 0, add it to count and add it to queue
+check is count==numberOFCOurses
+
+`````
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        //course numbered from 0 to n-1
+        int[] depen=new int[numCourses];
+        for(int[] p : prerequisites){
+            depen[p[0]]++;
+        }
+        //out of courses numbered 0 to n-1 some might be having 0 dependencies,
+        //add them to queue
+        Queue<Integer> queue=new LinkedList<>();
+        int count=0;
+        for(int i=0;i<numCourses;i++){
+            if(depen[i]==0){
+                queue.add(i);
+                count++;
+            }
+        }
+        
+        while(!queue.isEmpty()){
+            int pre=queue.poll();
+            for(int[] p : prerequisites){
+                if(p[1]==pre){
+                    depen[p[0]]--;
+                    if(depen[p[0]]==0){
+                        //all prerequisites done ad to completed queue
+                        queue.add(p[0]);
+                        count++;
+                    }
+                }
+            }
+        }
+        return count==numCourses;
+    }
+}
+
+`````
