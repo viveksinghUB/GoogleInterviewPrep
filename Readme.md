@@ -1038,3 +1038,55 @@ void productArray(int arr[], int n)
         return;
     }
    `````
+35. #### Given one string, add char to string and find that character in log n time
+
+
+Its simple
+assuming that there are no duplicates in the string
+Google
+aGoogle
+
+or
+Google
+Gooagle
+
+while l<hi
+So assume that inserted guy is in the mid
+if s1[mid] == s2[mid] 
+	lo=mid+1;
+else //if mid guys are not equal and before them are equal than the mid one is the new guy
+if mid==0 || s1[mid-1] ==s2[mid-1]
+	return s1[mid]
+else 
+	hi=mid-1
+
+//if nothing, 
+	return s[n-1]
+
+````
+
+def solution(s1, s2)
+      n = s1.length
+      return s2 if n == 0
+
+      lo = 0
+      hi = n-1
+
+      while lo <= hi # todo
+        mid = lo+((hi-lo)/2)
+        c1 = s1[mid]
+        c2 = s2[mid]
+        if c1 == c2
+          lo = mid+1
+        else
+          if mid == 0 || (s1[mid-1] == s2[mid-1])
+            return s2[mid]
+          else
+            hi = mid
+          end
+        end
+      end
+      return s2[-1]
+    end
+
+````
