@@ -1090,3 +1090,97 @@ def solution(s1, s2)
     end
 
 ````
+
+36 #### Given a number, find all number composed of 0 and 1 that are less than it
+
+call with prefix
+check if < n if yes call aain if no return
+`````
+
+public class Main {
+    public static void main(String[] args) {
+        printAll("1",123);
+        
+        printAll("0",123);
+    }
+    static void printAll(String suff,int n){
+        int val= Integer.valueOf(suff);
+        if(val > n)
+            return;
+        else{
+            System.out.println(val); 
+            if(val!=0){
+                printAll(suff+"1",n);
+                printAll(suff+"0",n);
+            }
+                
+           
+        }
+  }
+}
+
+`````
+
+
+
+37. #### LCA in a  binary tree (gfg)[https://www.geeksforgeeks.org/lowest-common-ancestor-binary-tree-set-1/]_
+
+
+if node.data==n1 || node.data==n2
+	return node // the lca node gets carried over
+else
+Node left = lca(node.left,n1,n2)
+Node right = lca(node.right,n1,n2)
+if (left_lca!=null && right_lca!=null)
+            return node;
+if(left==null && right==null)
+return null
+
+if left!=null return left else return right;
+
+
+
+````
+ 
+
+public class BinaryTree
+{
+    //Root of the Binary Tree
+    Node root;
+ 
+    Node findLCA(int n1, int n2)
+    {
+        return findLCA(root, n1, n2);
+    }
+ 
+    // This function returns pointer to LCA of two given
+    // values n1 and n2. This function assumes that n1 and
+    // n2 are present in Binary Tree
+    Node findLCA(Node node, int n1, int n2)
+    {
+        // Base case
+        if (node == null)
+            return null;
+ 
+        // If either n1 or n2 matches with root's key, report
+        // the presence by returning root (Note that if a key is
+        // ancestor of other, then the ancestor key becomes LCA
+        if (node.data == n1 || node.data == n2)
+            return node;
+ 
+        // Look for keys in left and right subtrees
+        Node left_lca = findLCA(node.left, n1, n2);
+        Node right_lca = findLCA(node.right, n1, n2);
+ 
+        // If both of the above calls return Non-NULL, then one key
+        // is present in once subtree and other is present in other,
+        // So this node is the LCA
+        if (left_lca!=null && right_lca!=null)
+            return node;
+ 
+        // Otherwise check if left subtree or right subtree is LCA
+        return (left_lca != null) ? left_lca : right_lca;
+    }
+
+}
+
