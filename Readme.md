@@ -625,7 +625,7 @@ void findWordsUtil(char boggle[M][N], bool visited[M][N], int i,
 ````
 
 
-
+20.1 ##### Auto complete using (trie)[https://www.geeksforgeeks.org/auto-complete-feature-using-trie/]
 
 ---
 
@@ -1184,3 +1184,46 @@ public class BinaryTree
 
 }
 
+40. #### Directed acylic graphs: longest paths
+
+Longest path will tell max number of semester to complete the course or max numbetr of dependent intervals to complete the course
+
+for each node keep the count of the indegree and maxpath till now 
+update maxpath till now to  max(current , max of incoming+1)
+max of all maxpath is m
+
+
+41 #### detect cycle in a dag
+
+dfs in a dag, 
+push a guy when you visit it
+as soon as you would have visited all its out degrees remove it from stack/Arraylist
+thus stack keeps edges in mind and will track backedge
+
+`````
+def isCyclicUtil(self, v, visited, recStack):
+ 
+        # Mark current node as visited and 
+        # adds to recursion stack
+        visited[v] = True
+        recStack[v] = True
+ 
+        # Recur for all neighbours
+        # if any neighbour is visited and in 
+        # recStack then graph is cyclic
+        for neighbour in self.graph[v]:
+            if visited[neighbour] == False:
+                if self.isCyclicUtil(neighbour, visited, recStack) == True:
+                    return True
+            elif recStack[neighbour] == True:
+                return True
+ 
+        # The node needs to be poped from 
+        # recursion stack before function ends
+        recStack[v] = False
+        return False
+`````
+
+42. ##### Bellman Ford (Given a graph and a source vertex src in graph, find shortest paths from src to all vertices in the given graph. The graph may contain negative weight edges)[https://www.geeksforgeeks.org/dynamic-programming-set-23-bellman-ford-algorithm/]
+
+Dijkstra doesn’t work for Graphs with negative weight edges, Bellman-Ford works for such graphs. Bellman-Ford is also simpler than Dijkstra and suites well for distributed systems. But time complexity of Bellman-Ford is **O(VE)**, which is more than Dijkstra.
