@@ -1224,6 +1224,143 @@ def isCyclicUtil(self, v, visited, recStack):
         return False
 `````
 
+
+41.b (Shortest Path in Directed Acyclic Graph)[https://www.geeksforgeeks.org/shortest-path-for-directed-acyclic-graphs/]
+
+single source shortest distances in O(V+E) time for DAGs. The idea is to use Topological Sorting
+
+
 42. ##### Bellman Ford (Given a graph and a source vertex src in graph, find shortest paths from src to all vertices in the given graph. The graph may contain negative weight edges)[https://www.geeksforgeeks.org/dynamic-programming-set-23-bellman-ford-algorithm/]
 
 Dijkstra doesn’t work for Graphs with negative weight edges, Bellman-Ford works for such graphs. Bellman-Ford is also simpler than Dijkstra and suites well for distributed systems. But time complexity of Bellman-Ford is **O(VE)**, which is more than Dijkstra.
+
+Input: Graph and a source vertex src
+Output: Shortest distance to all vertices from src. If there is a negative weight cycle, then shortest distances are not calculated, negative weight cycle is reported.
+
+`````
+Following is complete algorithm for finding shortest distances.
+1) Initialize dist[] = {INF, INF, ….} and dist[s] = 0 where s is the source vertex.
+2) Create a toplogical order of all vertices.
+3) Do following for every vertex u in topological order.
+………..Do following for every adjacent vertex v of u
+………………if (dist[v] > dist[u] + weight(u, v))
+………………………dist[v] = dist[u] + weight(u, v)
+
+
+````
+1) This step initializes distances from source to all vertices as infinite and distance to source itself as 0. Create an array dist[] of size |V| with all values as infinite except dist[src] where src is source vertex.
+
+2) This step calculates shortest distances. Do following |V|-1 times where |V| is the number of vertices in given graph.
+…..a) Do following for each edge u-v
+………………If dist[v] > dist[u] + weight of edge uv, then update dist[v]
+………………….dist[v] = dist[u] + weight of edge uv
+
+3) This step reports if there is a negative weight cycle in graph. Do following for each edge u-v
+……If dist[v] > dist[u] + weight of edge uv, then “Graph contains negative weight cycle”
+The idea of step 3 is, step 2 guarantees shortest distances if graph doesn’t contain negative weight cycle. If we iterate through all edges one more time and get a shorter path for any vertex, then there is a negative weight cycle
+
+
+
+43. ##### (Kruskal’s Minimum Spanning Tree Algorithm)[https://www.geeksforgeeks.org/?p=26604]
+1. Sort all the edges in non-decreasing order of their weight.
+2. Pick the smallest edge. Check if it forms a cycle with the spanning tree formed so far. If cycle is not formed, include this edge. Else, discard it.
+3. Repeat step#2 until there are (V-1) edges in the spanning tree.
+
+44. #### (Dijkstra’s shortest path algorithm)[https://www.geeksforgeeks.org/?p=27697]
+
+Below are the detailed steps used in Dijkstra’s algorithm to find the shortest path from a single source vertex to all other vertices in the given graph.
+Algorithm
+1) Create a set sptSet (shortest path tree set) that keeps track of vertices included in shortest path tree, i.e., whose minimum distance from source is calculated and finalized. Initially, this set is empty.
+2) Assign a distance value to all vertices in the input graph. Initialize all distance values as INFINITE. Assign distance value as 0 for the source vertex so that it is picked first.
+3) While sptSet doesn’t include all vertices
+….a) Pick a vertex u which is not there in sptSetand has minimum distance value.
+….b) Include u to sptSet.
+….c) Update distance value of all adjacent vertices of u. To update the distance values, iterate through all adjacent vertices. For every adjacent vertex v, if sum of distance value of u (from source) and weight of edge u-v, is less than the distance value of v, then update the distance value of v.
+
+
+
+44. ##### Prim’s Minimum Spanning Tree (MST)[https://www.geeksforgeeks.org/?p=27455]
+ The idea is to maintain two sets of vertices. The first set contains the vertices already included in the MST, the other set contains the vertices not yet included. At every step, it considers all the edges that connect the two sets, and picks the minimum weight edge from these edges. After picking the edge, it moves the other endpoint of the edge to the set containing MST.
+ 
+ 
+ 
+ ## Dynamic programing questions
+ 
+ 45. #### Fibinacci series
+ 
+ a. Recursion
+ `````
+ int fib(int n){
+ 	if(n<=1) return n;
+	return fib(n-1)+fib(n-2);
+ }
+ `````
+ 
+ b. DP with memoization
+ 
+ `````
+ int fib (int n, int [] mem){
+ 	if( mem[n]!=0) return mem[n];
+	int fibn=0;
+	if(n==1 || n==0){
+		fibn=n;
+	}
+	fibn=fib[n-1]+fib[n-2];
+	mem[n]=fibn;
+	return fibn;
+ }
+ `````
+ 
+ c. Tabulation (Bottom Up):
+
+`````
+ int fib(int n){
+ 	int[] arr = new int[n+1];
+	arr[0]=1;arr[1]=1;
+	for(int i=2;<=n;i++){
+		arr[i]=arr[i-1]+arr[i-2];
+	}
+	return arr[n];
+ }
+ `````
+46. #### (Ugly number)[https://www.geeksforgeeks.org/ugly-numbers/]
+
+Ugly numbers are numbers whose only prime factors are 2, 3 or 5. The sequence 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, … shows the first 11 ugly numbers. By convention, 1 is included.
+
+````
+int getNthUglyNo(int n)
+{
+	int i2=0,i3=0,i5=0;
+	int [] ugly = new int[n+1];
+	ugly[0]=1;
+	int i=0;
+	while(i<n){
+		i++;
+		ugly[i] = Math.min( Math.min (ugly[i2]*2,ugly[i3]*3),ugly[i5]*5 );
+		if(ugly[i]==ugly[i2]*2)i2++;
+		if(ugly[i]==ugly[i3]*3)i3++;
+		if(ugly[i]==ugly[i5]*5)i5++;
+	}
+	return ugly[n-1];
+}
+`````
+
+47. #### (Super ugly number)[https://www.geeksforgeeks.org/super-ugly-number-number-whose-prime-factors-given-set/]
+
+`````
+Let k be size of given array of prime numbers.
+Declare a set for super ugly numbers.
+Insert first ugly number (which is always 1) into set.
+Initialize array multiple_of[k] of size k with 0. Each element of this array is iterator for corresponding prime in primes[k] array.
+Initialize nextMultipe[k] array with primes[k]. This array behaves like next multiple variables of each prime in given primes[k] array i.e; nextMultiple[i] = primes[i] * ugly[++multiple_of[i]].
+Now loop until there are n elements in set ugly.
+a). Find minimum among current multiples of primes in nextMultiple[] array and insert it in the set of ugly numbers.
+b). Then find this current minimum is multiple of which prime .
+c). Increase iterator by 1 i.e; ++multiple_Of[i], for next multiple of current selected prime and update nextMultiple for it.
+`````
+
+48. #### (Longest Increasing Subsequence)[https://www.geeksforgeeks.org/longest-increasing-subsequence/]
+
+length of LIS for {10, 22, 9, 33, 21, 50, 41, 60, 80} is 6 and LIS is {10, 22, 33, 50, 60, 80}.
+
+!()[https://www.geeksforgeeks.org/wp-content/uploads/Longest-Increasing-Subsequence.png]
