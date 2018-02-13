@@ -1363,4 +1363,93 @@ c). Increase iterator by 1 i.e; ++multiple_Of[i], for next multiple of current s
 
 length of LIS for {10, 22, 9, 33, 21, 50, 41, 60, 80} is 6 and LIS is {10, 22, 33, 50, 60, 80}.
 
-!()[https://www.geeksforgeeks.org/wp-content/uploads/Longest-Increasing-Subsequence.png]
+`````
+Let arr[0..n-1] be the input array and L(i) be the length of the LIS ending at index i such that arr[i] is the last element of the LIS.
+Then, L(i) can be recursively written as:
+L(i) = 1 + max( L(j) ) where 0 < j < i and arr[j] < arr[i]; or
+L(i) = 1, if no such j exists.
+`````
+
+`````
+
+    {
+          int lis[] = new int[n];
+          int i,j,max = 0;
+ 
+          /* Initialize LIS values for all indexes */
+           for ( i = 0; i < n; i++ )
+              lis[i] = 1;
+ 
+           /* Compute optimized LIS values in bottom up manner */
+           for ( i = 1; i < n; i++ )
+              for ( j = 0; j < i; j++ ) 
+                         if ( arr[i] > arr[j] && lis[i] < lis[j] + 1)
+                    lis[i] = lis[j] + 1;
+ 
+           /* Pick maximum of all LIS values */
+           for ( i = 0; i < n; i++ )
+              if ( max < lis[i] )
+                 max = lis[i];
+ 
+            return max;
+    }
+    
+ `````
+ 
+ 49. #### (Longest Common Subsequence)[https://www.geeksforgeeks.org/longest-common-subsequence/]
+ 
+ If last characters of both sequences match (or X[m-1] == Y[n-1]) then
+L(X[0..m-1], Y[0..n-1]) = 1 + L(X[0..m-2], Y[0..n-2])
+
+If last characters of both sequences do not match (or X[m-1] != Y[n-1]) then
+L(X[0..m-1], Y[0..n-1]) = MAX ( L(X[0..m-2], Y[0..n-1]), L(X[0..m-1], Y[0..n-2])
+
+a. recursive O(2^n)
+
+`````
+
+int lcs(String a, String b , int m , int n){
+//m,n to store last index
+if(m<0 || n<0)
+	return 0;
+if(a.charAt(m)==b.charAt(n))
+	return 1+lcs(a,b,m-1,n-1);
+else
+	return Math.max(lcs(a,b,m-1,n),lcs(a,b,m,n-1));
+}
+
+`````
+
+b. Tabulation O(m*n)
+
+`````
+int lcs(String a, String b, int m,int n){
+	int[][] mem= new int[m+1][n+1];
+	for(int i=1;i<=m;i++){
+		for(int j=1;i<=n;j++){
+			if(a.charAt(i-1)==b.charAt(j-1)){
+				mem[i][j]=1+mem[i-1][j-1];
+			}
+			else{
+				mem[i][j]=Math.max(mem[i-1][j],mem[i][])
+			}
+		}
+	}
+	return mem[m-1][n-1];
+}
+`````
+
+50. #### (Longest Repeated Subsequence)[https://www.geeksforgeeks.org/longest-repeated-subsequence/]
+
+Given a string, print the longest repeating subseequence such that the two subsequence don’t have same string character at same position, i.e., any i’th character in the two subsequences shouldn’t have the same index in the original string.
+
+Input: str = "aabb"
+Output: "ab"
+
+Input: str = "aab"
+Output: "a"
+The two subssequence are 'a'(first) and 'a' 
+(second). Note that 'b' cannot be considered 
+as part of subsequence as it would be at same
+index in both.
+
